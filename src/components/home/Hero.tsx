@@ -23,20 +23,49 @@ export default function Hero() {
       {/* Fine grain gradient base */}
       <div className="absolute inset-0 bg-gradient-to-b from-navy-deep via-navy to-navy-deep" />
 
-      {/* Skyline silhouette motif (echoes the logo's building mark) */}
-      <svg
-        className="absolute bottom-0 inset-x-0 w-full h-[38%] opacity-[0.14]"
-        viewBox="0 0 1440 320"
-        preserveAspectRatio="none"
-        fill="none"
-      >
-        <rect x="60" y="120" width="90" height="200" fill="#F0A731" />
-        <rect x="170" y="60" width="70" height="260" fill="#FAF6EF" />
-        <rect x="260" y="150" width="60" height="170" fill="#F0A731" />
-        <rect x="1150" y="90" width="80" height="230" fill="#FAF6EF" />
-        <rect x="1250" y="150" width="60" height="170" fill="#F0A731" />
-        <rect x="1330" y="40" width="70" height="280" fill="#FAF6EF" />
-      </svg>
+      {/* Ambient air particles — reinforces "breathable" motif */}
+      <div className="pointer-events-none absolute inset-0">
+        {[
+          { l: "12%", d: 0, s: 0 },
+          { l: "24%", d: 1.2, s: 3 },
+          { l: "38%", d: 2.4, s: 1.5 },
+          { l: "58%", d: 0.6, s: 4 },
+          { l: "72%", d: 1.8, s: 2 },
+          { l: "86%", d: 3, s: 0.5 },
+        ].map((p, i) => (
+          <motion.span
+            key={i}
+            animate={{ y: [-14, 14, -14], opacity: [0.15, 0.5, 0.15] }}
+            transition={{
+              duration: 5 + p.s,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: p.d,
+            }}
+            className="absolute h-1.5 w-1.5 rounded-full bg-sage-light/60"
+            style={{ left: p.l, top: `${20 + i * 9}%` }}
+          />
+        ))}
+      </div>
+
+      {/* Skyline silhouette — anchored to the bottom edge, echoes the logo mark */}
+      <div className="absolute bottom-0 inset-x-0 h-[34%]">
+        <div className="absolute inset-0 bg-gradient-to-t from-navy-deep to-transparent" />
+        <svg
+          className="absolute bottom-0 inset-x-0 w-full h-full opacity-[0.16]"
+          viewBox="0 0 1440 260"
+          preserveAspectRatio="none"
+          fill="none"
+        >
+          <rect x="0" y="150" width="1440" height="110" fill="#0a1b36" />
+          <rect x="40" y="90" width="64" height="170" fill="#F0A731" />
+          <rect x="130" y="40" width="52" height="220" fill="#FAF6EF" />
+          <rect x="210" y="115" width="46" height="145" fill="#F0A731" />
+          <rect x="1150" y="70" width="60" height="190" fill="#FAF6EF" />
+          <rect x="1240" y="115" width="46" height="145" fill="#F0A731" />
+          <rect x="1310" y="20" width="54" height="240" fill="#FAF6EF" />
+        </svg>
+      </div>
 
       <div className="relative z-10 mx-auto max-w-7xl w-full px-6 lg:px-10 pb-28 pt-40">
         <motion.p
