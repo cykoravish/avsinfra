@@ -43,7 +43,7 @@ export default function Navbar() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 shrink-0 z-10">
+          <Link href="/" className="flex items-center gap-2.5 shrink-0 z-50 relative">
             <Image
               src="/images/logo.png"
               alt="AVS Infra"
@@ -94,7 +94,7 @@ export default function Navbar() {
           <button
             onClick={() => setOpen((v) => !v)}
             aria-label="Toggle menu"
-            className={`lg:hidden z-10 relative h-10 w-10 flex items-center justify-center ${
+            className={`lg:hidden z-50 relative h-10 w-10 flex items-center justify-center ${
               open || scrolled ? "text-navy" : "text-cream"
             }`}
           >
@@ -118,13 +118,13 @@ export default function Navbar() {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ clipPath: "circle(0% at 100% 0%)" }}
-            animate={{ clipPath: "circle(150% at 100% 0%)" }}
-            exit={{ clipPath: "circle(0% at 100% 0%)" }}
-            transition={{ duration: 0.6, ease: [0.65, 0, 0.35, 1] }}
-            className="lg:hidden fixed inset-0 bg-navy-deep"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
+            className="lg:hidden fixed inset-0 z-40 bg-navy-deep"
           >
-            <div className="h-full flex flex-col px-8 pt-28 pb-10">
+            <div className="h-full flex flex-col px-8 pt-28 pb-10 overflow-y-auto">
               <nav className="flex flex-col gap-1">
                 {LINKS.map((link, i) => (
                   <motion.div
