@@ -44,3 +44,22 @@ body {
   background: var(--gold);
   color: var(--navy-deep);
 }
+
+/* Slim, brand-colored scrollbar for the mobile nav drawer */
+.nice-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(240, 167, 49, 0.35) transparent;
+}
+.nice-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.nice-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.nice-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(240, 167, 49, 0.35);
+  border-radius: 999px;
+}
+.nice-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(240, 167, 49, 0.6);
+}
