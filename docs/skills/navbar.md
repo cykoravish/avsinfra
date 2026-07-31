@@ -26,7 +26,17 @@
 </AnimatePresence>
 ```
 
-## Checklist before marking navbar "done"
+## Logo handling (critical — recurring bug source)
+1. **Always verify transparency programmatically before using a logo asset** — many client-supplied logos are exported with a near-white "matte" baked into RGB with an almost-opaque alpha (e.g. 229/255), which LOOKS transparent in a preview tool but shows a visible white box on a dark navbar. Check with PIL: `im.convert('RGBA'); im.getpixel((0,0))` — if corner alpha isn't 0, fix it (threshold near-white pixels to alpha 0, keep true logo colors at alpha 255).
+2. **Never overwrite an image file at the same path/filename** if it's rendered through `next/image` — the Next.js image optimizer caches by URL, so a content change under the same filename can keep serving the stale cached (broken) version. Always bump the filename (`logo.png` → `logo-v2.png`) when replacing a broken asset, and update every reference.
+3. Confirm actual pixel dimensions of the source file before setting `width`/`height` on `next/image` (mismatched aspect ratio stretches the logo).
+
+## Interactive-state contrast rule
+Any icon/element whose color depends on "am I on a light or dark background" must be driven by the ACTUAL current background of its container, not a proxy variable. Bug hit: hamburger icon used the same `dark` flag for both scrolled-header (light bg) and open-drawer (dark bg) states — those are opposite backgrounds, so one state always had near-invisible contrast. Fix: derive icon color from `scrolled && !open` (light bg only when scrolled AND drawer closed); the drawer background is always dark, so icon is always cream while open.
+
+## Mobile touch feedback
+Touch devices don't have `:hover` — always pair `hover:` utilities with `active:` (and ideally identical values) on any tappable row/button so there's visible feedback on tap, not just desktop mouse-over.
+
 - [ ] Close button clickable in every state (test by opening then tapping X)
 - [ ] Drawer fully opaque — zero background bleed-through at any animation frame
 - [ ] Logo visible & correctly proportioned on mobile (not stretched/squished)

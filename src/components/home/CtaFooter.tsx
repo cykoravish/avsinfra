@@ -52,7 +52,7 @@ export default function CtaFooter() {
           <div>
             <div className="flex items-center gap-2.5">
               <Image
-                src="/images/logo.png"
+                src="/images/logo-v2.png"
                 alt="AVS Infra"
                 width={38}
                 height={38}

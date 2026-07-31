@@ -41,7 +41,10 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  const dark = scrolled || open; // when true, header content should be navy (on light bg)
+  // Header content color: navy when on solid light bg (scrolled, drawer closed), cream otherwise.
+  // Important: when the drawer is OPEN, its background is always dark (navy-deep),
+  // so the toggle icon must stay cream — never navy-on-navy (that was the "faded X" bug).
+  const useDarkIcon = scrolled && !open;
 
   return (
     <header className="fixed top-0 inset-x-0 z-40">
@@ -61,7 +64,7 @@ export default function Navbar() {
               onClick={() => setOpen(false)}
             >
               <Image
-                src="/images/logo.png"
+                src="/images/logo-v2.png"
                 alt="AVS Infra"
                 width={148}
                 height={80}
@@ -108,12 +111,12 @@ export default function Navbar() {
             >
               <span
                 className={`absolute h-[2px] w-6 rounded-full transition-all duration-300 ease-in-out ${
-                  dark ? "bg-navy" : "bg-cream"
+                  useDarkIcon ? "bg-navy" : "bg-cream"
                 } ${open ? "rotate-45 translate-y-0" : "-translate-y-[5px]"}`}
               />
               <span
                 className={`absolute h-[2px] w-6 rounded-full transition-all duration-300 ease-in-out ${
-                  dark ? "bg-navy" : "bg-cream"
+                  useDarkIcon ? "bg-navy" : "bg-cream"
                 } ${open ? "-rotate-45 translate-y-0" : "translate-y-[5px]"}`}
               />
             </button>
@@ -144,14 +147,14 @@ export default function Navbar() {
                     <a
                       href={link.href}
                       onClick={() => setOpen(false)}
-                      className="group flex items-center justify-between py-4 border-b border-cream/10"
+                      className="group flex items-center justify-between py-4 px-3 -mx-3 rounded-xl border-b border-cream/10 transition-colors duration-200 hover:bg-cream/[0.06] active:bg-gold/10"
                     >
-                      <span className="font-display text-3xl text-cream group-active:text-gold transition-colors">
+                      <span className="font-display text-3xl text-cream group-hover:text-gold group-active:text-gold transition-colors duration-200">
                         {link.label}
                       </span>
                       <ArrowUpRight
                         size={20}
-                        className="text-cream/30 group-active:text-gold transition-colors"
+                        className="text-cream/30 group-hover:text-gold group-hover:translate-x-0.5 group-active:text-gold transition-all duration-200"
                       />
                     </a>
                   </motion.div>
@@ -168,7 +171,7 @@ export default function Navbar() {
                 <a
                   href="/contact"
                   onClick={() => setOpen(false)}
-                  className="flex justify-center items-center gap-1.5 rounded-full px-6 py-4 text-sm font-semibold bg-coral text-cream w-full"
+                  className="flex justify-center items-center gap-1.5 rounded-full px-6 py-4 text-sm font-semibold bg-coral text-cream w-full transition-colors duration-200 hover:bg-gold hover:text-navy-deep active:bg-gold active:text-navy-deep"
                 >
                   Enquire Now
                   <ArrowUpRight size={16} />
