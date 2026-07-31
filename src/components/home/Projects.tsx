@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { ArrowUpRight, Building2 } from "lucide-react";
 
 const PROJECTS = [
@@ -79,9 +80,17 @@ export default function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.7 }}
-          className="mt-6 rounded-2xl bg-gradient-to-r from-navy to-navy-deep px-8 py-10 sm:px-12 sm:py-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6"
+          className="mt-6 rounded-2xl relative overflow-hidden px-8 py-10 sm:px-12 sm:py-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6"
         >
-          <div>
+          <Image
+            src="https://images.unsplash.com/photo-1757125505346-2d71c70e6003?auto=format&fit=crop&w=1600&q=80"
+            alt="Upcoming AVS landmark development"
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-navy-deep via-navy-deep/90 to-navy-deep/60" />
+          <div className="relative">
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
               Upcoming Landmark
             </span>
@@ -95,7 +104,7 @@ export default function Projects() {
           </div>
           <a
             href="/commercial"
-            className="inline-flex items-center gap-1.5 rounded-full bg-cream text-navy px-6 py-3 font-semibold text-sm shrink-0 hover:bg-gold transition-colors"
+            className="relative inline-flex items-center gap-1.5 rounded-full bg-cream text-navy px-6 py-3 font-semibold text-sm shrink-0 hover:bg-gold transition-colors w-fit"
           >
             Learn More <ArrowUpRight size={16} />
           </a>

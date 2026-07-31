@@ -1,6 +1,7 @@
 import Navbar from "@/components/home/Navbar";
 import Hero from "@/components/home/Hero";
 import Belief from "@/components/home/Belief";
+import Lifestyle from "@/components/home/Lifestyle";
 import About from "@/components/home/About";
 import Leadership from "@/components/home/Leadership";
 import Values from "@/components/home/Values";
@@ -16,6 +17,7 @@ export default function Home() {
       <main>
         <Hero />
         <Belief />
+        <Lifestyle />
         <About />
         <Leadership />
         <Values />

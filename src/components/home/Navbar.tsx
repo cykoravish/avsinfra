@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Menu, X, ArrowUpRight, Phone, Mail } from "lucide-react";
 
 const LINKS = [
   { label: "Home", href: "/" },
@@ -24,10 +25,17 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
-        scrolled
+        scrolled || open
           ? "bg-cream/90 backdrop-blur-md shadow-[0_1px_0_0_rgba(18,41,79,0.08)]"
           : "bg-transparent"
       }`}
@@ -35,7 +43,7 @@ export default function Navbar() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 shrink-0">
+          <Link href="/" className="flex items-center gap-2.5 shrink-0 z-10">
             <Image
               src="/images/logo.png"
               alt="AVS Infra"
@@ -46,7 +54,7 @@ export default function Navbar() {
             />
             <span
               className={`font-display text-xl tracking-tight font-semibold transition-colors ${
-                scrolled ? "text-navy" : "text-cream"
+                scrolled || open ? "text-navy" : "text-cream"
               }`}
             >
               AVS <span className="text-coral">Infra</span>
@@ -86,39 +94,91 @@ export default function Navbar() {
           <button
             onClick={() => setOpen((v) => !v)}
             aria-label="Toggle menu"
-            className={`lg:hidden ${scrolled ? "text-navy" : "text-cream"}`}
+            className={`lg:hidden z-10 relative h-10 w-10 flex items-center justify-center ${
+              open || scrolled ? "text-navy" : "text-cream"
+            }`}
           >
-            {open ? <X size={26} /> : <Menu size={26} />}
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={open ? "close" : "menu"}
+                initial={{ opacity: 0, rotate: -90 }}
+                animate={{ opacity: 1, rotate: 0 }}
+                exit={{ opacity: 0, rotate: 90 }}
+                transition={{ duration: 0.2 }}
+                className="absolute"
+              >
+                {open ? <X size={24} /> : <Menu size={24} />}
+              </motion.span>
+            </AnimatePresence>
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
-      <div
-        className={`lg:hidden overflow-hidden transition-all duration-400 ease-in-out bg-cream ${
-          open ? "max-h-96 border-t border-navy/10" : "max-h-0"
-        }`}
-      >
-        <nav className="flex flex-col px-6 py-4 gap-1">
-          {LINKS.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="py-3 text-ink font-medium border-b border-navy/5 last:border-none"
-            >
-              {link.label}
-            </a>
-          ))}
-          <a
-            href="/contact"
-            className="mt-4 inline-flex justify-center items-center gap-1.5 rounded-full px-5 py-3 text-sm font-semibold bg-navy text-cream"
+      {/* Mobile drawer — full-screen premium overlay */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ clipPath: "circle(0% at 100% 0%)" }}
+            animate={{ clipPath: "circle(150% at 100% 0%)" }}
+            exit={{ clipPath: "circle(0% at 100% 0%)" }}
+            transition={{ duration: 0.6, ease: [0.65, 0, 0.35, 1] }}
+            className="lg:hidden fixed inset-0 bg-navy-deep"
           >
-            Enquire Now
-            <ArrowUpRight size={16} />
-          </a>
-        </nav>
-      </div>
+            <div className="h-full flex flex-col px-8 pt-28 pb-10">
+              <nav className="flex flex-col gap-1">
+                {LINKS.map((link, i) => (
+                  <motion.div
+                    key={link.label}
+                    initial={{ opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 12 }}
+                    transition={{ duration: 0.45, delay: 0.15 + i * 0.06 }}
+                  >
+                    <a
+                      href={link.href}
+                      onClick={() => setOpen(false)}
+                      className="group flex items-center justify-between py-4 border-b border-cream/10"
+                    >
+                      <span className="font-display text-3xl text-cream group-active:text-gold transition-colors">
+                        {link.label}
+                      </span>
+                      <ArrowUpRight
+                        size={20}
+                        className="text-cream/30 group-active:text-gold transition-colors"
+                      />
+                    </a>
+                  </motion.div>
+                ))}
+              </nav>
+
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.4, delay: 0.5 }}
+                className="mt-auto"
+              >
+                <a
+                  href="/contact"
+                  onClick={() => setOpen(false)}
+                  className="flex justify-center items-center gap-1.5 rounded-full px-6 py-4 text-sm font-semibold bg-coral text-cream w-full"
+                >
+                  Enquire Now
+                  <ArrowUpRight size={16} />
+                </a>
+                <div className="mt-6 flex flex-col gap-3 text-cream/50 text-sm">
+                  <span className="flex items-center gap-2.5">
+                    <Phone size={14} className="text-gold" /> +91 00000 00000
+                  </span>
+                  <span className="flex items-center gap-2.5">
+                    <Mail size={14} className="text-gold" /> info@avsindiainfra.com
+                  </span>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

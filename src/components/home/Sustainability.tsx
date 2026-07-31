@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { AirVent, Recycle, Volume2, Sprout, Trees } from "lucide-react";
 
 const FEATURES = [
@@ -13,8 +14,17 @@ const FEATURES = [
 
 export default function Sustainability() {
   return (
-    <section className="bg-sage py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+    <section className="relative py-24 sm:py-32 overflow-hidden bg-sage">
+      <Image
+        src="https://images.unsplash.com/photo-1759722144257-2925448a51a3?auto=format&fit=crop&w=1800&q=80"
+        alt="Green rooftop with bamboo plants, symbolizing sustainable living"
+        fill
+        sizes="100vw"
+        className="object-cover opacity-25 mix-blend-luminosity"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-sage/95 via-sage/90 to-sage" />
+
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}

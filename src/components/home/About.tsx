@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const STATS = [
   { value: "12+", label: "Years of Experience", sub: "Delivering thoughtfully planned developments." },
@@ -41,24 +42,30 @@ export default function About() {
             </p>
           </motion.div>
 
-          {/* Visual: legacy badge — fills the space with the "since 2014" story */}
+          {/* Visual: building image + floating legacy badge */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
+            initial={{ opacity: 0, scale: 0.94 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="lg:col-span-4 lg:col-start-9 flex justify-center"
+            className="lg:col-span-5 lg:col-start-8 relative"
           >
-            <div className="relative h-56 w-56 sm:h-64 sm:w-64 rounded-full border border-gold/25 flex items-center justify-center">
-              <div className="absolute inset-4 rounded-full border border-cream/10" />
-              <div className="text-center">
-                <p className="font-display text-6xl text-gold">12+</p>
-                <p className="mt-2 text-cream/60 text-sm uppercase tracking-[0.15em]">
-                  Years building
-                  <br />
-                  trust in NCR
-                </p>
-              </div>
+            <div className="relative h-72 sm:h-80 rounded-3xl overflow-hidden">
+              <Image
+                src="https://images.unsplash.com/photo-1757125505346-2d71c70e6003?auto=format&fit=crop&w=1200&q=80"
+                alt="An AVS residential development with green rooftop"
+                fill
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/60 via-transparent to-transparent" />
+            </div>
+
+            <div className="absolute -bottom-8 -left-8 h-32 w-32 sm:h-36 sm:w-36 rounded-full bg-navy-deep border border-gold/30 flex flex-col items-center justify-center text-center shadow-xl">
+              <p className="font-display text-3xl sm:text-4xl text-gold">12+</p>
+              <p className="mt-1 text-cream/60 text-[10px] uppercase tracking-[0.1em] leading-tight px-2">
+                Years building trust
+              </p>
             </div>
           </motion.div>
         </div>
