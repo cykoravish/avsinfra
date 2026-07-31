@@ -22,7 +22,7 @@ export default function Sustainability() {
         sizes="100vw"
         className="object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/70 to-sage/40" />
+      <div className="absolute inset-0 bg-gradient-to-b from-navy-deep via-navy-deep/85 to-sage/50" />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
         <motion.div

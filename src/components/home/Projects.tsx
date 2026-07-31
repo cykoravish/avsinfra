@@ -89,6 +89,7 @@ export default function Projects() {
             sizes="100vw"
             className="object-cover"
           />
+          <div className="absolute inset-0 bg-navy-deep/50" />
           <div className="absolute inset-0 bg-gradient-to-r from-navy-deep via-navy-deep/90 to-navy-deep/60" />
           <div className="relative">
             <span className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
