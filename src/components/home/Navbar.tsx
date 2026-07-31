@@ -134,7 +134,7 @@ export default function Navbar() {
             transition={{ duration: 0.3, ease: "easeOut" }}
             className="lg:hidden fixed inset-0 z-50 bg-navy-deep"
           >
-            <div className="h-full flex flex-col justify-center px-8">
+            <div className="h-full flex flex-col px-8 pt-28 pb-10 overflow-y-auto">
               <nav className="flex flex-col gap-1">
                 {LINKS.map((link, i) => (
                   <motion.div
