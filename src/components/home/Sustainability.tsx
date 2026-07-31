@@ -14,15 +14,15 @@ const FEATURES = [
 
 export default function Sustainability() {
   return (
-    <section className="relative py-24 sm:py-32 overflow-hidden bg-sage">
+    <section className="relative py-24 sm:py-32 overflow-hidden bg-navy-deep">
       <Image
         src="https://images.unsplash.com/photo-1759722144257-2925448a51a3?auto=format&fit=crop&w=1800&q=80"
         alt="Green rooftop with bamboo plants, symbolizing sustainable living"
         fill
         sizes="100vw"
-        className="object-cover opacity-25 mix-blend-luminosity"
+        className="object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-sage/95 via-sage/90 to-sage" />
+      <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/70 to-sage/40" />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
         <motion.div
