@@ -49,8 +49,10 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 inset-x-0 z-40">
       <div
-        className={`transition-colors duration-500 ${
-          scrolled
+        className={`transition-colors duration-300 ${
+          open
+            ? "bg-navy-deep"
+            : scrolled
             ? "bg-cream/90 backdrop-blur-md shadow-[0_1px_0_0_rgba(18,41,79,0.08)]"
             : "bg-transparent"
         }`}
